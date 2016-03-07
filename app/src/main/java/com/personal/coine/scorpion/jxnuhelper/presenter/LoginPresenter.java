@@ -15,11 +15,13 @@
 package com.personal.coine.scorpion.jxnuhelper.presenter;
 
 import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
-import com.personal.coine.scorpion.jxnuhelper.biz.OnLoginListener;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.LoginBizImpl;
+import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 import com.personal.coine.scorpion.jxnuhelper.view.ILoginView;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.LogInListener;
 
 /**
  * Description:
@@ -37,15 +39,17 @@ public class LoginPresenter {
     }
 
     public void login() {
-        loginBiz.login(userLoginView.getUserName(), userLoginView.getPassword(), new OnLoginListener() {
+        userLoginView.showLoading();
+        loginBiz.login(userLoginView.getContext(), userLoginView.getPhoneNumber(), userLoginView.getPassword(), new LogInListener<BmobUser>() {
             @Override
-            public void loginSuccess(BmobUser user) {
-
-            }
-
-            @Override
-            public void loginFailed() {
-
+            public void done(BmobUser user, BmobException e) {
+                userLoginView.hideLoading();
+                if (user != null) {
+                    userLoginView.toMainActivity();
+                    ApplicationDelegate.getInstance().setCurrentUser(user);
+                } else {
+                    userLoginView.showFailedError(e.getMessage());
+                }
             }
         });
     }

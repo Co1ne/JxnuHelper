@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">师大助手</string>
     <string name="splash_image">初始页图像</string>
-    <string name="username_input">用户名</string>
+    <string name="phone_number_input">手机号</string>
+    <string name="sms_code">验证码</string>
     <string name="password_input">密码</string>
     <string name="login_action">登录</string>
     <string name="register_action">注册</string>
     <string name="forgotten_password">忘记密码？</string>
+    <string name="request_sms_code">获取验证码</string>
 </resources>

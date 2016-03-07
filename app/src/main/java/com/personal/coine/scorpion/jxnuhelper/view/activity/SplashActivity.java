@@ -1,9 +1,13 @@
 package com.personal.coine.scorpion.jxnuhelper.view.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.LinearLayout;
 
 import com.personal.coine.scorpion.jxnuhelper.R;
 
@@ -17,9 +21,33 @@ public class SplashActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        // 初始化 Bmob SDK
-        // 使用时请将第二个参数Application ID替换成你在Bmob服务器端创建的Application ID
-        initBmob();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LinearLayout launch = (LinearLayout) findViewById(R.id.launch_img);
+        AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
+        animation.setDuration(2000);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                initBmob();
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        launch.setAnimation(animation);
     }
 
     private void initBmob() {

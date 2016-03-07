@@ -1,4 +1,4 @@
-package com.personal.coine.scorpion.jxnuhelper.biz;/*
+/*
  * Copyright(c) Runsdata Technologies Co., Ltd.
  * All Rights Reserved.
  *
@@ -10,13 +10,24 @@ package com.personal.coine.scorpion.jxnuhelper.biz;/*
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/6  1.0     huangwei    Creation File
+ * 2016/3/7  1.0     huangwei    Creation File
  */
+package com.personal.coine.scorpion.jxnuhelper.core;
 
-import cn.bmob.v3.BmobUser;
+import android.app.Application;
 
-public interface OnLoginListener {
-    void loginSuccess(BmobUser user);
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 
-    void loginFailed();
+/**
+ * Description:
+ *
+ * @author huangwei
+ *         Date 2016/3/7
+ */
+public class SampleApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        TypefaceProvider.registerDefaultIconSets();
+    }
 }

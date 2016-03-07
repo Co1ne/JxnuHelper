@@ -13,10 +13,12 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
  * 2016/3/6  1.0     huangwei    Creation File
  */
 
+import android.content.Context;
+
 import cn.bmob.v3.BmobUser;
 
 public interface ILoginView {
-    String getUserName();
+    String getPhoneNumber();
 
     String getPassword();
 
@@ -24,7 +26,9 @@ public interface ILoginView {
 
     void hideLoading();
 
-    void toMainActivity(BmobUser user);
+    void toMainActivity();
 
-    void showFailedError();
+    void showFailedError(String description);
+
+    Context getContext();
 }

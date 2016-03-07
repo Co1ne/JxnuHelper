@@ -1,4 +1,4 @@
-/*
+package com.personal.coine.scorpion.jxnuhelper.view;/*
  * Copyright(c) Runsdata Technologies Co., Ltd.
  * All Rights Reserved.
  *
@@ -10,26 +10,27 @@
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/6  1.0     huangwei    Creation File
+ * 2016/3/7  1.0     huangwei    Creation File
  */
-package com.personal.coine.scorpion.jxnuhelper.biz.impl;
 
 import android.content.Context;
 
-import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
-
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.LogInListener;
 
-/**
- * Description:
- *
- * @author huangwei
- *         Date 2016/3/6
- */
-public class LoginBizImpl implements ILoginBiz {
-    @Override
-    public void login(Context context, String phoneNumber, String password, LogInListener logInListener) {
-        BmobUser.loginByAccount(context, phoneNumber, password, logInListener);
-    }
+public interface IRegisterView {
+    String getPhoneNumber();
+
+    String getPassword();
+
+    String getSMSCode();
+
+    void showLoading();
+
+    void hideLoading();
+
+    void loginAndToMain();
+
+    void showFailedError(String description);
+
+    Context getContext();
 }

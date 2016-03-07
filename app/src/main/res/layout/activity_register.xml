@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg">
+
+    <ProgressBar
+        android:id="@+id/register_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/et_register_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:drawableLeft="@drawable/account_icon"
+            android:hint="@string/phone_number_input"
+            android:singleLine="true"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="md" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <com.beardedhen.androidbootstrap.BootstrapEditText
+                android:id="@+id/et_sms_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:drawableLeft="@drawable/sms_code"
+                android:hint="@string/sms_code"
+                android:singleLine="true"
+                app:bootstrapBrand="info"
+                app:bootstrapSize="md" />
+
+            <Button
+                android:id="@+id/btn_request_sms_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="0.4"
+                android:background="@drawable/btn_selector"
+                android:text="@string/request_sms_code"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/et_register_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:drawableLeft="@drawable/password_icon"
+            android:hint="@string/password_input"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="md" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_register_action_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dp"
+            android:text="@string/register_action"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:showOutline="false" />
+
+    </LinearLayout>
+</RelativeLayout>

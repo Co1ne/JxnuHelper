@@ -10,26 +10,15 @@
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/6  1.0     huangwei    Creation File
+ * 2016/3/7  1.0     huangwei    Creation File
  */
-package com.personal.coine.scorpion.jxnuhelper.biz.impl;
-
-import android.content.Context;
-
-import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
-
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.LogInListener;
+package com.personal.coine.scorpion.jxnuhelper;
 
 /**
  * Description:
  *
  * @author huangwei
- *         Date 2016/3/6
+ *         Date 2016/3/7
  */
-public class LoginBizImpl implements ILoginBiz {
-    @Override
-    public void login(Context context, String phoneNumber, String password, LogInListener logInListener) {
-        BmobUser.loginByAccount(context, phoneNumber, password, logInListener);
-    }
+public class Constants {
 }
