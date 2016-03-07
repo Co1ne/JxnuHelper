@@ -8,4 +8,7 @@
     <string name="register_action">注册</string>
     <string name="forgotten_password">忘记密码？</string>
     <string name="request_sms_code">获取验证码</string>
+    <string name="tab_title_query">校园查询</string>
+    <string name="tab_title_news">校园资讯</string>
+    <string name="tab_title_mine">我的</string>
 </resources>
