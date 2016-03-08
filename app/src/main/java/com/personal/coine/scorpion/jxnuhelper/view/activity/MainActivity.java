@@ -9,7 +9,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.view.fragment.CommonQueryFragment;
-import com.personal.coine.scorpion.jxnuhelper.view.fragment.TempFragment;
+import com.personal.coine.scorpion.jxnuhelper.view.fragment.NewsListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.tab_title_query, CommonQueryFragment.class)
-                .add(R.string.tab_title_news, TempFragment.class)
-                .add(R.string.tab_title_mine, TempFragment.class)
+                .add(R.string.tab_title_news, NewsListFragment.class)
+                .add(R.string.tab_title_mine, NewsListFragment.class)
                 .create());
         ViewPager mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainViewPager.setAdapter(adapter);
