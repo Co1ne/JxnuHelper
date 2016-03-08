@@ -9,19 +9,20 @@
         android:id="@+id/news_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="title"
-        android:textSize="20sp" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/news_category_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="newsCategory"
+        android:textColor="@android:color/holo_orange_light"
         android:textStyle="italic" />
 
     <TextView
         android:id="@+id/news_date_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="date" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

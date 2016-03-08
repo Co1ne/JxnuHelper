@@ -52,6 +52,12 @@ public class NewsListFragment extends Fragment implements INewsView {
         refreshView = (HitBlockRefreshView) view.findViewById(R.id.refresh_hit_block);
         newsList = (ListView) view.findViewById(R.id.news_list);
         newsPresenter.requestNewsData();
+        refreshView.setOnRefreshListener(new HitBlockRefreshView.HitBlockRefreshListener() {
+            @Override
+            public void onRefreshing() {
+                newsPresenter.requestNewsData();
+            }
+        });
     }
 
 
