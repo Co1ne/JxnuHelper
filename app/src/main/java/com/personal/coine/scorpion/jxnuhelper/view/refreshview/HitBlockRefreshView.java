@@ -1,4 +1,4 @@
-package com.personal.coine.scorpion.jxnuhelper.view.custom;
+package com.personal.coine.scorpion.jxnuhelper.view.refreshview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

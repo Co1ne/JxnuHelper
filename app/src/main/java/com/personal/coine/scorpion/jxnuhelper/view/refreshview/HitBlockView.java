@@ -1,4 +1,4 @@
-package com.personal.coine.scorpion.jxnuhelper.view.custom;
+package com.personal.coine.scorpion.jxnuhelper.view.refreshview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

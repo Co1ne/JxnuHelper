@@ -15,6 +15,7 @@
 package com.personal.coine.scorpion.jxnuhelper.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobDate;
 
 /**
  * Description:
@@ -22,19 +23,20 @@ import cn.bmob.v3.BmobObject;
  * @author huangwei
  *         Date 2016/3/8
  */
-public class NewsBean extends BmobObject {
+public class News extends BmobObject {
     private String newsTitle;
-    private String newsDate;
-    private String category;
+    private BmobDate newsDate;
+    private String newsCategory;
     private String newsContent;
 
-    public NewsBean() {
+    public News() {
     }
 
-    public NewsBean(String newsTitle, String newsDate, String category, String newsContent) {
+    public News(String newsTitle, BmobDate newsDate, String newsCategory, String newsContent) {
+        super("News");
         this.newsTitle = newsTitle;
         this.newsDate = newsDate;
-        this.category = category;
+        this.newsCategory = newsCategory;
         this.newsContent = newsContent;
     }
 
@@ -46,20 +48,20 @@ public class NewsBean extends BmobObject {
         this.newsTitle = newsTitle;
     }
 
-    public String getNewsDate() {
+    public BmobDate getNewsDate() {
         return newsDate;
     }
 
-    public void setNewsDate(String newsDate) {
+    public void setNewsDate(BmobDate newsDate) {
         this.newsDate = newsDate;
     }
 
-    public String getCategory() {
-        return category;
+    public String getNewsCategory() {
+        return newsCategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setNewsCategory(String newsCategory) {
+        this.newsCategory = newsCategory;
     }
 
     public String getNewsContent() {

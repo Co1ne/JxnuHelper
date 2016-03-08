@@ -12,7 +12,7 @@
  * Date     Version     Name        Description
  * 2016/3/8  1.0     huangwei    Creation File
  */
-package com.personal.coine.scorpion.jxnuhelper.view.custom;
+package com.personal.coine.scorpion.jxnuhelper.view.refreshview;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

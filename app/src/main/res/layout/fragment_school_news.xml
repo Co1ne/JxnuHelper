@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.personal.coine.scorpion.jxnuhelper.view.custom.HitBlockRefreshView
+    <com.personal.coine.scorpion.jxnuhelper.view.refreshview.HitBlockRefreshView
         android:id="@+id/refresh_hit_block"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +16,6 @@
             android:id="@+id/news_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.personal.coine.scorpion.jxnuhelper.view.custom.HitBlockRefreshView>
+    </com.personal.coine.scorpion.jxnuhelper.view.refreshview.HitBlockRefreshView>
 
 </LinearLayout>
