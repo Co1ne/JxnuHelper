@@ -47,6 +47,7 @@ public class NewsPresenter {
             public void onSuccess(List<News> list) {
                 NewsListAdapter adapter = new NewsListAdapter(newsView.getFragmentContext(), list);
                 newsView.getListView().setAdapter(adapter);
+                newsView.getRefreshView().finishRefreshing();
             }
 
             @Override
@@ -55,4 +56,5 @@ public class NewsPresenter {
             }
         });
     }
+
 }
