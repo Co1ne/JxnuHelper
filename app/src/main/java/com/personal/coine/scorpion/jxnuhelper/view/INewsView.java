@@ -24,5 +24,9 @@ public interface INewsView {
 
     ListView getListView();
 
+    void showLoading();
+
+    void hideLoading();
+
     Context getFragmentContext();
 }

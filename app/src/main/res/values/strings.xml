@@ -11,4 +11,5 @@
     <string name="tab_title_query">校园查询</string>
     <string name="tab_title_news">校园资讯</string>
     <string name="tab_title_mine">我的</string>
+    <string name="user_avadar">用户头像</string>
 </resources>
