@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.presenter.RegisterPresenter;
 import com.personal.coine.scorpion.jxnuhelper.utils.TimerCount;
@@ -21,7 +21,7 @@ public class RegisterActivity extends Activity implements IRegisterView {
     private EditText phoneNumber;
     private EditText SMSCode;
     private EditText password;
-    private ProgressBar registerProgress;
+    private KProgressHUD registerProgress;
     private RegisterPresenter registerPresenter = new RegisterPresenter(this);
     private BootstrapButton actionRegister;
     private Button requestSMSCode;
@@ -37,7 +37,6 @@ public class RegisterActivity extends Activity implements IRegisterView {
         phoneNumber = (EditText) findViewById(R.id.et_register_phone_number);
         SMSCode = (EditText) findViewById(R.id.et_sms_code);
         password = (EditText) findViewById(R.id.et_register_password);
-        registerProgress = (ProgressBar) findViewById(R.id.register_progress);
         actionRegister = (BootstrapButton) findViewById(R.id.btn_register_action_register);
         actionRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +60,7 @@ public class RegisterActivity extends Activity implements IRegisterView {
                 timerCount.start();
             }
         });
+        registerProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("正在注册...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f);
     }
 
     @Override
@@ -80,12 +80,12 @@ public class RegisterActivity extends Activity implements IRegisterView {
 
     @Override
     public void showLoading() {
-        registerProgress.setVisibility(View.VISIBLE);
+        registerProgress.show();
     }
 
     @Override
     public void hideLoading() {
-        registerProgress.setVisibility(View.GONE);
+        registerProgress.dismiss();
     }
 
     @Override

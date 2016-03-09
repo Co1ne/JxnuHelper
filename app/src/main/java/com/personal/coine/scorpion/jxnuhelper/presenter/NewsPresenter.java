@@ -14,6 +14,9 @@
  */
 package com.personal.coine.scorpion.jxnuhelper.presenter;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.personal.coine.scorpion.jxnuhelper.adapter.NewsListAdapter;
@@ -21,7 +24,9 @@ import com.personal.coine.scorpion.jxnuhelper.bean.News;
 import com.personal.coine.scorpion.jxnuhelper.biz.INewsBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.NewsBizImpl;
 import com.personal.coine.scorpion.jxnuhelper.view.INewsView;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.NewsDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.listener.FindListener;
@@ -35,6 +40,7 @@ import cn.bmob.v3.listener.FindListener;
 public class NewsPresenter {
     private INewsView newsView;
     private INewsBiz newsBiz;
+    private List<News> newsList = new ArrayList<>();
 
     public NewsPresenter(INewsView newsView) {
         this.newsView = newsView;
@@ -42,19 +48,32 @@ public class NewsPresenter {
     }
 
     public void requestNewsData() {
+        newsView.showLoading();
         newsBiz.getNewsData(newsView.getFragmentContext(), new FindListener<News>() {
             @Override
             public void onSuccess(List<News> list) {
+                newsList = list;
                 NewsListAdapter adapter = new NewsListAdapter(newsView.getFragmentContext(), list);
                 newsView.getListView().setAdapter(adapter);
                 newsView.getRefreshView().finishRefreshing();
+                newsView.hideLoading();
             }
 
             @Override
             public void onError(int i, String s) {
+                newsView.hideLoading();
+                newsView.getRefreshView().finishRefreshing();
                 Toast.makeText(newsView.getFragmentContext(), "错误:" + s, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    public void goDetail() {
+        newsView.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                newsView.getFragmentContext().startActivity(new Intent(newsView.getFragmentContext(), NewsDetailActivity.class).putExtra("newsTitle",newsList.get(position).getNewsTitle()).putExtra("newsContent", newsList.get(position).getNewsContent()));
+            }
+        });
+    }
 }

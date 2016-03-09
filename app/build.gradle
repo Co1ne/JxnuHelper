@@ -40,5 +40,7 @@ dependencies {
     //ViewPager
     compile 'com.ogaclejapan.smarttablayout:library:1.6.0@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
+    //loading
+    compile 'com.kaopiz:kprogresshud:1.0.5'
 
 }

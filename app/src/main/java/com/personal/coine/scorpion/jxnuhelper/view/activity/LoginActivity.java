@@ -5,10 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapEditText;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.presenter.LoginPresenter;
 import com.personal.coine.scorpion.jxnuhelper.view.ILoginView;
@@ -17,7 +17,7 @@ public class LoginActivity extends Activity implements ILoginView {
     private LoginPresenter loginPresenter = new LoginPresenter(this);
     private BootstrapEditText phoneNumber;
     private BootstrapEditText password;
-    private ProgressBar loginProgress;
+    private KProgressHUD loginProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LoginActivity extends Activity implements ILoginView {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
-        loginProgress = (ProgressBar) findViewById(R.id.login_progress);
+        loginProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("正在登陆...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f);
     }
 
     @Override
@@ -56,12 +56,12 @@ public class LoginActivity extends Activity implements ILoginView {
 
     @Override
     public void showLoading() {
-        loginProgress.setVisibility(View.VISIBLE);
+        loginProgress.show();
     }
 
     @Override
     public void hideLoading() {
-        loginProgress.setVisibility(View.GONE);
+        loginProgress.dismiss();
     }
 
     @Override

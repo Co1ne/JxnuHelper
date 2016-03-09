@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/bootstrap_button_default_hori_padding"
+        android:paddingRight="@dimen/bootstrap_button_default_hori_padding"
+        android:text="个人设置"
+        android:textColor="@color/bootstrap_gray_light"
+        android:textSize="@dimen/bootstrap_button_default_font_size" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_around_corner_line"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/user_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:id="@+id/user_avadar_img"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@string/user_avadar"
+                android:paddingRight="20.0dip"
+                android:src="@mipmap/ic_launcher" />
+
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/bootstrap_button_default_hori_padding"
+        android:paddingRight="@dimen/bootstrap_button_default_hori_padding"
+        android:text="我的校园"
+        android:textColor="@color/bootstrap_gray_light"
+        android:textSize="@dimen/bootstrap_button_default_font_size" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:id="@+id/more_page_row2"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_top_corner_no_bottom_line"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="校园回忆"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@drawable/ic_arrow" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/more_page_row3"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_bottom_corner_no_top_line"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="校园账本"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@drawable/ic_arrow" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10.0dip"
+        android:layout_marginTop="10.0dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/bootstrap_button_default_hori_padding"
+        android:paddingRight="@dimen/bootstrap_button_default_hori_padding"
+        android:text="系统设置"
+        android:textColor="@color/bootstrap_gray_light"
+        android:textSize="@dimen/bootstrap_button_default_font_size" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:id="@+id/more_page_row4"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_top_corner_no_bottom_line"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="意见反馈"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@drawable/ic_arrow" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/more_page_row5"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="检测更新"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@drawable/ic_arrow" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/more_page_row6"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_bottom_corner_no_top_line"
+            android:paddingBottom="16.0dip"
+            android:paddingTop="16.0dip">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="关于"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:paddingRight="20.0dip"
+                android:src="@drawable/ic_arrow" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
