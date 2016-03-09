@@ -18,8 +18,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.personal.coine.scorpion.jxnuhelper.R;
+import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 
 /**
  * Description:
@@ -36,6 +38,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initViews() {
+        ((TextView) findViewById(R.id.user_name)).setText(ApplicationDelegate.getInstance().getCurrentUser().getUsername());
+        ((TextView) findViewById(R.id.phone_number)).setText(ApplicationDelegate.getInstance().getCurrentUser().getMobilePhoneNumber());
+
         findViewById(R.id.row_avadar).setOnClickListener(this);
         findViewById(R.id.row_username).setOnClickListener(this);
         findViewById(R.id.row_sex).setOnClickListener(this);
