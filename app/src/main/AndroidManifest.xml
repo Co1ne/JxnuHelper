@@ -28,6 +28,7 @@
         <activity android:name=".view.activity.LoginActivity" />
         <activity android:name=".view.activity.RegisterActivity" />
         <activity android:name=".view.activity.NewsDetailActivity" />
+        <activity android:name=".view.activity.MyInfoActivity" />
     </application>
 
 </manifest>

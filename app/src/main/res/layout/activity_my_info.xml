@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:id="@+id/row_avadar"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/user_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <ImageView
+                android:id="@+id/user_avadar_img"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:contentDescription="@string/user_avadar"
+                android:paddingRight="20.0dip"
+                android:src="@mipmap/ic_launcher" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_username"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
+            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="昵称"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_phone_number"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
+            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="手机号"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:shrinkColumns="0"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:id="@+id/row_sex"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
+            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="性别"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_hometown"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
+            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="地区"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/hometown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/row_personal_sign"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
+            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="个性签名"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/personal_sign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

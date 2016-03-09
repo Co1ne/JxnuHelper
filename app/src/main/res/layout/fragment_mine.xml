@@ -24,6 +24,7 @@
         android:stretchColumns="0">
 
         <TableRow
+            android:id="@+id/mine_page_row1"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
@@ -72,7 +73,7 @@
         android:stretchColumns="0">
 
         <TableRow
-            android:id="@+id/more_page_row2"
+            android:id="@+id/mine_page_row2"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
@@ -101,7 +102,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/more_page_row3"
+            android:id="@+id/mine_page_row3"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
@@ -149,7 +150,7 @@
         android:stretchColumns="0">
 
         <TableRow
-            android:id="@+id/more_page_row4"
+            android:id="@+id/mine_page_row4"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
@@ -178,7 +179,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/more_page_row5"
+            android:id="@+id/mine_page_row5"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
@@ -207,7 +208,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/more_page_row6"
+            android:id="@+id/mine_page_row6"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"
             android:layout_marginRight="2.0dip"
