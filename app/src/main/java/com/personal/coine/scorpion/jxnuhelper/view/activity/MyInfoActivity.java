@@ -14,9 +14,15 @@
  */
 package com.personal.coine.scorpion.jxnuhelper.view.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,18 +34,26 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.personal.coine.scorpion.jxnuhelper.Constants;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.bean.CityBean;
 import com.personal.coine.scorpion.jxnuhelper.bean.DistrictBean;
 import com.personal.coine.scorpion.jxnuhelper.bean.ProvinceBean;
 import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
+import com.personal.coine.scorpion.jxnuhelper.presenter.UserInfoPresenter;
 import com.personal.coine.scorpion.jxnuhelper.utils.OthersUtils;
 import com.personal.coine.scorpion.jxnuhelper.utils.XmlParserHandler;
+import com.personal.coine.scorpion.jxnuhelper.view.IUserInfoView;
 
 import org.xml.sax.SAXException;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -49,20 +63,28 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import cn.bmob.v3.datatype.BmobFile;
+
 /**
  * Description:
  *
  * @author huangwei
  *         Date 2016/3/9
  */
-public class MyInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class MyInfoActivity extends AppCompatActivity implements View.OnClickListener, IUserInfoView {
     private static final String TAG = MyInfoActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_PICK_IMAGE = 1;
+    private static final int REQUEST_CODE_CAPTURE_CAMEIA = 2;
+    private static final int PHOTO_REQUEST_CUT = 3;
     private View vMasker;
     private OptionsPickerView areaPickerView;
     private ArrayList<String> provinceList = new ArrayList<>();
     private ArrayList<ArrayList<String>> cityList = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> districtList = new ArrayList<>();
-
+    private UserInfoPresenter userPresenter = new UserInfoPresenter(this);
+    private String photoName;
+    private BmobFile avadarImage;
+    private KProgressHUD loginProgress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,13 +104,14 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.row_personal_sign).setOnClickListener(this);
         vMasker = findViewById(R.id.vMasker);
         initAreaPicker();
+        loginProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("正在处理...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.row_avadar:
-
+                choosePic();
                 break;
             case R.id.row_username:
                 final EditText nameInput = new EditText(this);
@@ -132,6 +155,44 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
         }
+    }
+
+    private void choosePic() {
+        new AlertDialog.Builder(this).setTitle("选择头像").setPositiveButton("拍照", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                takePhoto();
+            }
+        }).setNegativeButton("从相册选取", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pickPhoto();
+            }
+        }).show();
+    }
+
+    private void takePhoto() {
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
+            String out_file_path = Constants.SAVED_IMAGE_DIR_PATH;
+            File dir = new File(out_file_path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            photoName = Constants.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(photoName)));
+            getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMEIA);
+        } else {
+            Toast.makeText(getApplicationContext(), "请确认已经插入SD卡", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void pickPhoto() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");//相片类型
+        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
 
     private void initAreaPicker() {
@@ -183,11 +244,104 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onOptionsSelect(int options1, int option2, int options3) {
                 vMasker.setVisibility(View.GONE);
-//                user.setProvince(provinceList.get(options1));
-//                user.setCity(cityList.get(options1).get(option2));
-//                user.setTown(districtList.get(options1).get(option2).get(options3));
-//                initList();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_IMAGE) {
+            Uri uri = data.getData();
+            crop(uri);
+        } else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
+            Uri uri = data.getData();
+            if (uri == null) {
+                //use bundle to get data
+                Bundle bundle = data.getExtras();
+                if (bundle != null) {
+                    Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
+                    //spath :生成图片取个名字和路径包含类型
+                    saveBitmapFile(photo);
+                } else {
+                    Toast.makeText(getApplicationContext(), "err****", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            } else {
+                crop(uri);
+            }
+        } else if (requestCode == PHOTO_REQUEST_CUT) {
+            try {
+                // TODO: 2016/3/10 文件上传 待续!!!
+                Bitmap bitmap = data.getParcelableExtra("data");
+                String filePath = saveBitmapFile(bitmap);
+                if (filePath != null) {
+                    avadarImage = new BmobFile(new File(filePath));
+                    userPresenter.changeUserAvadar();
+                } else {
+                    Toast.makeText(MyInfoActivity.this, "头像上传失败，请重试", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String saveBitmapFile(Bitmap bitmap) {
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(Constants.SAVED_IMAGE_DIR_PATH + fileName);//将要保存图片的路径
+        try {
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+            return fileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 图片剪裁
+     *
+     * @param uri
+     */
+    private void crop(Uri uri) {
+        // 裁剪图片意图
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        // 裁剪框的比例，1：1
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // 裁剪后输出图片的尺寸大小
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+        // 图片格式
+        intent.putExtra("outputFormat", "JPEG");
+        intent.putExtra("noFaceDetection", true);// 取消人脸识别
+        intent.putExtra("return-data", true);// true:不返回uri，false：返回uri
+        startActivityForResult(intent, PHOTO_REQUEST_CUT);
+    }
+
+    @Override
+    public Context getThisContext() {
+        return this;
+    }
+
+    @Override
+    public BmobFile getUserAvadar() {
+        return avadarImage;
+    }
+
+    @Override
+    public void showLoading() {
+        loginProgress.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        loginProgress.dismiss();
     }
 }

@@ -13,8 +13,17 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
  * 2016/3/10  1.0     huangwei    Creation File
  */
 
-import android.widget.ImageView;
+import android.content.Context;
+
+import cn.bmob.v3.datatype.BmobFile;
 
 public interface IUserInfoView {
-    ImageView getAvadarView();
+
+    Context getThisContext();
+
+    BmobFile getUserAvadar();
+
+    void showLoading();
+
+    void hideLoading();
 }

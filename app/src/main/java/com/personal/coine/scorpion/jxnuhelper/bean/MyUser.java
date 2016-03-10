@@ -17,6 +17,7 @@ package com.personal.coine.scorpion.jxnuhelper.bean;
 import java.io.File;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Description:
@@ -30,7 +31,7 @@ public class MyUser extends BmobUser {
     private String city;
     private String district;
     private String personalSign;
-    private File userAvadar;
+    private BmobFile userAvadar;
 
     public String getSex() {
         return sex;
@@ -72,11 +73,11 @@ public class MyUser extends BmobUser {
         this.personalSign = personalSign;
     }
 
-    public File getUserAvadar() {
+    public BmobFile getUserAvadar() {
         return userAvadar;
     }
 
-    public void setUserAvadar(File userAvadar) {
+    public void setUserAvadar(BmobFile userAvadar) {
         this.userAvadar = userAvadar;
     }
 }

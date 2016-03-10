@@ -14,6 +14,8 @@
  */
 package com.personal.coine.scorpion.jxnuhelper;
 
+import android.os.Environment;
+
 /**
  * Description:
  *
@@ -21,4 +23,5 @@ package com.personal.coine.scorpion.jxnuhelper;
  *         Date 2016/3/7
  */
 public class Constants {
+    public static final String SAVED_IMAGE_DIR_PATH = Environment.getExternalStorageDirectory().toString()+"/jxnu/";
 }
