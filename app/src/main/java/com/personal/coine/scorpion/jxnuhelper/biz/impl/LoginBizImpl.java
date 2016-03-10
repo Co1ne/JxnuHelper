@@ -16,9 +16,9 @@ package com.personal.coine.scorpion.jxnuhelper.biz.impl;
 
 import android.content.Context;
 
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.LogInListener;
 
 /**
@@ -30,6 +30,6 @@ import cn.bmob.v3.listener.LogInListener;
 public class LoginBizImpl implements ILoginBiz {
     @Override
     public void login(Context context, String phoneNumber, String password, LogInListener logInListener) {
-        BmobUser.loginByAccount(context, phoneNumber, password, logInListener);
+        MyUser.loginByAccount(context, phoneNumber, password, logInListener);
     }
 }

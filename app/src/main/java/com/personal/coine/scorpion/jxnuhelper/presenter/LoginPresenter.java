@@ -14,12 +14,12 @@
  */
 package com.personal.coine.scorpion.jxnuhelper.presenter;
 
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.LoginBizImpl;
 import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 import com.personal.coine.scorpion.jxnuhelper.view.ILoginView;
 
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 
@@ -40,9 +40,9 @@ public class LoginPresenter {
 
     public void login() {
         userLoginView.showLoading();
-        loginBiz.login(userLoginView.getContext(), userLoginView.getPhoneNumber(), userLoginView.getPassword(), new LogInListener<BmobUser>() {
+        loginBiz.login(userLoginView.getContext(), userLoginView.getPhoneNumber(), userLoginView.getPassword(), new LogInListener<MyUser>() {
             @Override
-            public void done(BmobUser user, BmobException e) {
+            public void done(MyUser user, BmobException e) {
                 userLoginView.hideLoading();
                 if (user != null) {
                     userLoginView.toMainActivity();

@@ -16,11 +16,10 @@ package com.personal.coine.scorpion.jxnuhelper.biz.impl;
 
 import android.content.Context;
 
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IRegisterBiz;
 
 import cn.bmob.v3.BmobSMS;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.RequestSMSCodeListener;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -38,7 +37,7 @@ public class RegisterBizImpl implements IRegisterBiz {
 
     @Override
     public void signAndLogin(Context context, String phoneNumber, String password, String SMSCode , SaveListener saveListener) {
-        BmobUser newUser = new BmobUser();
+        MyUser newUser = new MyUser();
         newUser.setMobilePhoneNumber(phoneNumber);
         newUser.setPassword(password);
         newUser.signOrLogin(context,SMSCode, saveListener);

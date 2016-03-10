@@ -46,8 +46,8 @@
             android:layout_marginRight="2.0dip"
             android:background="@drawable/shape_no_corner_without_bottom"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
-            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,8 +74,8 @@
             android:layout_marginRight="2.0dip"
             android:background="@drawable/shape_bottom_corner_no_top_line"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
-            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -110,8 +110,8 @@
             android:layout_marginRight="2.0dip"
             android:background="@drawable/shape_top_corner_no_bottom_line"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
-            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -138,8 +138,8 @@
             android:layout_marginRight="2.0dip"
             android:background="@drawable/shape_no_corner_without_bottom"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
-            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,8 +166,8 @@
             android:layout_marginRight="2.0dip"
             android:background="@drawable/shape_bottom_corner_no_top_line"
             android:gravity="center_vertical"
-            android:paddingBottom="@dimen/bootstrap_button_default_vert_padding"
-            android:paddingTop="@dimen/bootstrap_button_default_vert_padding">
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -187,4 +187,11 @@
                 android:paddingRight="20.0dip" />
         </TableRow>
     </TableLayout>
+
+    <View
+        android:id="@+id/vMasker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e0000000"
+        android:visibility="gone" />
 </LinearLayout>

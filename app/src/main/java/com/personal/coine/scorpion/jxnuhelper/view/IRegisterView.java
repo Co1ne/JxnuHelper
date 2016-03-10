@@ -15,8 +15,6 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
 
 import android.content.Context;
 
-import cn.bmob.v3.BmobUser;
-
 public interface IRegisterView {
     String getPhoneNumber();
 

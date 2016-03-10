@@ -42,5 +42,7 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
     //loading
     compile 'com.kaopiz:kprogresshud:1.0.5'
+    //area_picker
+    compile 'com.bigkoo:pickerview:2.0.8'
 
 }

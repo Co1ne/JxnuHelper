@@ -1,4 +1,4 @@
-package com.personal.coine.scorpion.jxnuhelper.biz;/*
+package com.personal.coine.scorpion.jxnuhelper.view;/*
  * Copyright(c) Runsdata Technologies Co., Ltd.
  * All Rights Reserved.
  *
@@ -10,15 +10,11 @@ package com.personal.coine.scorpion.jxnuhelper.biz;/*
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/6  1.0     huangwei    Creation File
+ * 2016/3/10  1.0     huangwei    Creation File
  */
 
-import android.content.Context;
+import android.widget.ImageView;
 
-import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
-
-import cn.bmob.v3.listener.LogInListener;
-
-public interface ILoginBiz {
-    void login(Context context, String phoneNumber, String password, LogInListener<MyUser> logInListener);
+public interface IUserInfoView {
+    ImageView getAvadarView();
 }

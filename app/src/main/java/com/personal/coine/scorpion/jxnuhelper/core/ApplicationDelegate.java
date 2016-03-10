@@ -14,7 +14,7 @@
  */
 package com.personal.coine.scorpion.jxnuhelper.core;
 
-import cn.bmob.v3.BmobUser;
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 
 /**
  * Description:
@@ -24,7 +24,7 @@ import cn.bmob.v3.BmobUser;
  */
 public class ApplicationDelegate {
     private static ApplicationDelegate instance = new ApplicationDelegate();
-    private BmobUser currentUser;
+    private MyUser currentUser;
 
     public ApplicationDelegate() {
     }
@@ -33,11 +33,11 @@ public class ApplicationDelegate {
         return instance;
     }
 
-    public BmobUser getCurrentUser() {
+    public MyUser getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(BmobUser currentUser) {
+    public void setCurrentUser(MyUser currentUser) {
         this.currentUser = currentUser;
     }
 }
