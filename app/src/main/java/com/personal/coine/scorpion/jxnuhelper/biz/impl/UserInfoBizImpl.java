@@ -16,14 +16,12 @@ package com.personal.coine.scorpion.jxnuhelper.biz.impl;
 
 import android.content.Context;
 
-import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
+import com.bmob.BTPFileResponse;
+import com.bmob.BmobProFile;
+import com.bmob.btp.callback.DownloadListener;
+import com.bmob.btp.callback.UploadListener;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
-
-import java.io.File;
-
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Description:
@@ -33,9 +31,13 @@ import cn.bmob.v3.listener.UpdateListener;
  */
 public class UserInfoBizImpl implements IUserInfoBiz {
     @Override
-    public void changeUserAvadar(Context context, BmobFile userAvadar, UpdateListener updateListener) {
-        MyUser user = ApplicationDelegate.getInstance().getCurrentUser();
-        user.setUserAvadar(userAvadar);
-        user.update(context,updateListener);
+    public void changeUserAvadar(Context context, String userAvadarPath, UploadListener uploadListener) {
+        BTPFileResponse response = BmobProFile.getInstance(context).upload(userAvadarPath, uploadListener);
+
+    }
+
+    @Override
+    public void loadUserAvadar(Context context, DownloadListener downloadListener) {
+        BmobProFile.getInstance(context).download(ApplicationDelegate.getInstance().getCurrentUser().getUserAvadarName(), downloadListener);
     }
 }

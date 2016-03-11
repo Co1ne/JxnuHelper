@@ -14,16 +14,19 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
  */
 
 import android.content.Context;
-
-import cn.bmob.v3.datatype.BmobFile;
+import android.widget.ImageView;
 
 public interface IUserInfoView {
 
     Context getThisContext();
 
-    BmobFile getUserAvadar();
+    String getUserAvadarPath();
 
     void showLoading();
 
+    void showLoadingProgress(int progress);
+
     void hideLoading();
+
+    ImageView getAvadarView();
 }

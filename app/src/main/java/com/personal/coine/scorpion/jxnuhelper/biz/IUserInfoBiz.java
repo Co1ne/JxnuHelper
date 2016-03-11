@@ -15,11 +15,11 @@ package com.personal.coine.scorpion.jxnuhelper.biz;/*
 
 import android.content.Context;
 
-import java.io.File;
-
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.listener.UpdateListener;
+import com.bmob.btp.callback.DownloadListener;
+import com.bmob.btp.callback.UploadListener;
 
 public interface IUserInfoBiz {
-    void changeUserAvadar(Context context, BmobFile userAvadar, UpdateListener updateListener);
+    void changeUserAvadar(Context context, String userAvadarPath, UploadListener uploadListeners);
+
+    void loadUserAvadar(Context context, DownloadListener downloadListener);
 }

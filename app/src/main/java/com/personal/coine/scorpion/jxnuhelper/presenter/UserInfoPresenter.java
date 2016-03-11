@@ -16,11 +16,14 @@ package com.personal.coine.scorpion.jxnuhelper.presenter;
 
 import android.util.Log;
 
+import com.bmob.btp.callback.DownloadListener;
+import com.bmob.btp.callback.UploadListener;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.UserInfoBizImpl;
+import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 import com.personal.coine.scorpion.jxnuhelper.view.IUserInfoView;
 
-import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * Description:
@@ -40,17 +43,44 @@ public class UserInfoPresenter {
 
     public void changeUserAvadar(){
         userInfoView.showLoading();
-        userInfoBiz.changeUserAvadar(userInfoView.getThisContext(), userInfoView.getUserAvadar(), new UpdateListener() {
+        userInfoBiz.changeUserAvadar(userInfoView.getThisContext(), userInfoView.getUserAvadarPath(), new UploadListener() {
+
             @Override
-            public void onSuccess() {
+            public void onSuccess(String fileName, String url, BmobFile bmobFile) {
+                Log.d(TAG, "文件上传成功：" + fileName + ",可访问的文件地址：" + bmobFile.getUrl());
+                ApplicationDelegate.getInstance().getCurrentUser().setUserAvadarName(fileName);
+                bmobFile.loadImage(userInfoView.getThisContext(), userInfoView.getAvadarView());
                 userInfoView.hideLoading();
-                Log.d(TAG,"success");
             }
 
             @Override
-            public void onFailure(int i, String s) {
+            public void onProgress(int progress) {
+                userInfoView.showLoadingProgress(progress);
+            }
+
+            @Override
+            public void onError(int i, String s) {
                 Log.e(TAG,"error:"+s);
                 userInfoView.hideLoading();
+            }
+        });
+    }
+
+    public void loadUserAvadar() {
+        userInfoBiz.loadUserAvadar(userInfoView.getThisContext(), new DownloadListener() {
+            @Override
+            public void onSuccess(String fullPath) {
+
+            }
+
+            @Override
+            public void onProgress(String s, int i) {
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
             }
         });
     }

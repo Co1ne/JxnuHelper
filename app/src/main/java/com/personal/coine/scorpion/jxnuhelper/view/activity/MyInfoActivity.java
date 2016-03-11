@@ -31,12 +31,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.bmob.BmobProFile;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.personal.coine.scorpion.jxnuhelper.Constants;
 import com.personal.coine.scorpion.jxnuhelper.R;
@@ -82,9 +84,10 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private ArrayList<ArrayList<String>> cityList = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> districtList = new ArrayList<>();
     private UserInfoPresenter userPresenter = new UserInfoPresenter(this);
-    private String photoName;
-    private BmobFile avadarImage;
+    private String avadarImagePath;
     private KProgressHUD loginProgress;
+    private Uri fileUri;
+    private ImageView userAvadarImg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,6 +97,8 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void initViews() {
+        userAvadarImg = (ImageView) findViewById(R.id.user_avadar_img);
+        userPresenter.loadUserAvadar();
         ((TextView) findViewById(R.id.user_name)).setText(ApplicationDelegate.getInstance().getCurrentUser().getUsername());
         ((TextView) findViewById(R.id.phone_number)).setText(ApplicationDelegate.getInstance().getCurrentUser().getMobilePhoneNumber());
 
@@ -104,7 +109,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.row_personal_sign).setOnClickListener(this);
         vMasker = findViewById(R.id.vMasker);
         initAreaPicker();
-        loginProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setLabel("正在处理...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f);
+        loginProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.PIE_DETERMINATE).setLabel("正在处理...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f).setMaxProgress(100);
     }
 
     @Override
@@ -180,8 +185,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            photoName = Constants.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";
-            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(photoName)));
+            String photoName = Constants.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";
+            fileUri = Uri.fromFile(new File(photoName));
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
             getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMEIA);
         } else {
@@ -254,28 +260,14 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             Uri uri = data.getData();
             crop(uri);
         } else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
-            Uri uri = data.getData();
-            if (uri == null) {
-                //use bundle to get data
-                Bundle bundle = data.getExtras();
-                if (bundle != null) {
-                    Bitmap photo = (Bitmap) bundle.get("data"); //get bitmap
-                    //spath :生成图片取个名字和路径包含类型
-                    saveBitmapFile(photo);
-                } else {
-                    Toast.makeText(getApplicationContext(), "err****", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            } else {
-                crop(uri);
-            }
+            crop(fileUri);
         } else if (requestCode == PHOTO_REQUEST_CUT) {
             try {
-                // TODO: 2016/3/10 文件上传 待续!!!
                 Bitmap bitmap = data.getParcelableExtra("data");
                 String filePath = saveBitmapFile(bitmap);
                 if (filePath != null) {
-                    avadarImage = new BmobFile(new File(filePath));
+                    avadarImagePath = filePath;
+                    Log.d(TAG, "用户头像路径:" + avadarImagePath);
                     userPresenter.changeUserAvadar();
                 } else {
                     Toast.makeText(MyInfoActivity.this, "头像上传失败，请重试", Toast.LENGTH_SHORT).show();
@@ -288,14 +280,14 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private String saveBitmapFile(Bitmap bitmap) {
-        String fileName = System.currentTimeMillis() + ".jpg";
-        File file = new File(Constants.SAVED_IMAGE_DIR_PATH + fileName);//将要保存图片的路径
+        String filePath = Constants.SAVED_IMAGE_DIR_PATH + System.currentTimeMillis() + ".jpg";
+        File file = new File(filePath);//将要保存图片的路径
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
             bos.flush();
             bos.close();
-            return fileName;
+            return filePath;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -331,8 +323,8 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public BmobFile getUserAvadar() {
-        return avadarImage;
+    public String getUserAvadarPath() {
+        return avadarImagePath;
     }
 
     @Override
@@ -341,7 +333,17 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void showLoadingProgress(int progress) {
+        loginProgress.setProgress(progress);
+    }
+
+    @Override
     public void hideLoading() {
         loginProgress.dismiss();
+    }
+
+    @Override
+    public ImageView getAvadarView() {
+        return userAvadarImg;
     }
 }
