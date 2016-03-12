@@ -30,6 +30,7 @@
         <activity android:name=".view.activity.NewsDetailActivity" />
         <activity android:name=".view.activity.MyInfoActivity" />
         <activity android:name=".view.activity.CourseQueryActivity" />
+        <activity android:name=".view.activity.FeeChargeActivity" />
     </application>
 
 </manifest>

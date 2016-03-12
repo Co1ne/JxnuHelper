@@ -27,6 +27,7 @@ import android.widget.ListView;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.adapter.QueryListViewAdapter;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.CourseQueryActivity;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.FeeChargeActivity;
 
 /**
  * Description:
@@ -56,6 +57,7 @@ public class CommonQueryFragment extends Fragment {
                         startActivity(new Intent(getContext(),CourseQueryActivity.class));
                         break;
                     case 1:
+                        startActivity(new Intent(getContext(),FeeChargeActivity.class));
                         break;
                     case 2:
                         break;

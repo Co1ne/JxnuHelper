@@ -30,7 +30,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -156,19 +155,22 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 final String[] sexChoice = new String[]{"男", "女"};
                 ListAdapter adapter1 = new ArrayAdapter<String>(MyInfoActivity.this, android.R.layout.simple_list_item_1, sexChoice);
                 sexList.setAdapter(adapter1);
-                final AlertDialog choiceDialog = new AlertDialog.Builder(this).setTitle("选择性别").setView(sexList).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                final AlertDialog choiceDialog = new AlertDialog.Builder(this).setTitle("选择性别").setSingleChoiceItems(sexChoice, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userSex = sexChoice[which];
+                    }
+                }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userPresenter.updateUserInfo();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 }).show();
-                sexList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        userSex = sexChoice[position];
-                        userPresenter.updateUserInfo();
-                    }
-                });
                 break;
             case R.id.row_hometown:
                 OthersUtils.hideKeyboard(MyInfoActivity.this);
