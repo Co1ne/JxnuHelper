@@ -14,6 +14,7 @@
  */
 package com.personal.coine.scorpion.jxnuhelper.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,11 +22,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.personal.coine.scorpion.jxnuhelper.R;
-import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
+import com.personal.coine.scorpion.jxnuhelper.presenter.UserInfoPresenter;
+import com.personal.coine.scorpion.jxnuhelper.view.IUserInfoView;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.MyInfoActivity;
+
+import cn.bmob.v3.BmobUser;
 
 /**
  * Description:
@@ -33,7 +39,10 @@ import com.personal.coine.scorpion.jxnuhelper.view.activity.MyInfoActivity;
  * @author huangwei
  *         Date 2016/3/9
  */
-public class MineFragment extends Fragment implements View.OnClickListener {
+public class MineFragment extends Fragment implements View.OnClickListener, IUserInfoView {
+    private ImageView userAvadarImg;
+    private UserInfoPresenter userInfoPresenter = new UserInfoPresenter(this);
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +52,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initViews(View view) {
-        ((TextView) view.findViewById(R.id.user_name_text)).setText(ApplicationDelegate.getInstance().getCurrentUser().getUsername());
+        ((TextView) view.findViewById(R.id.user_name_text)).setText(BmobUser.getCurrentUser(getContext(), MyUser.class).getUsername());
+        userAvadarImg = (ImageView) view.findViewById(R.id.user_avadar_img);
+        userInfoPresenter.loadUserAvadar();
         view.findViewById(R.id.mine_page_row1).setOnClickListener(this);
         view.findViewById(R.id.mine_page_row2).setOnClickListener(this);
         view.findViewById(R.id.mine_page_row3).setOnClickListener(this);
@@ -69,5 +80,35 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             case R.id.mine_page_row6:
                 break;
         }
+    }
+
+    @Override
+    public Context getThisContext() {
+        return getContext();
+    }
+
+    @Override
+    public String getUserAvadarPath() {
+        return null;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void showLoadingProgress(int progress) {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public ImageView getAvadarView() {
+        return userAvadarImg;
     }
 }

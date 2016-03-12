@@ -15,11 +15,11 @@ package com.personal.coine.scorpion.jxnuhelper.biz;/*
 
 import android.content.Context;
 
-import com.bmob.btp.callback.DownloadListener;
 import com.bmob.btp.callback.UploadListener;
+import com.squareup.okhttp.Callback;
 
 public interface IUserInfoBiz {
     void changeUserAvadar(Context context, String userAvadarPath, UploadListener uploadListeners);
 
-    void loadUserAvadar(Context context, DownloadListener downloadListener);
+    void loadUserAvadar(Context context,Callback callback);
 }

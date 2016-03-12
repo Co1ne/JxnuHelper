@@ -17,7 +17,6 @@ package com.personal.coine.scorpion.jxnuhelper.presenter;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.ILoginBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.LoginBizImpl;
-import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 import com.personal.coine.scorpion.jxnuhelper.view.ILoginView;
 
 import cn.bmob.v3.exception.BmobException;
@@ -46,7 +45,6 @@ public class LoginPresenter {
                 userLoginView.hideLoading();
                 if (user != null) {
                     userLoginView.toMainActivity();
-                    ApplicationDelegate.getInstance().setCurrentUser(user);
                 } else {
                     userLoginView.showFailedError(e.getMessage());
                 }

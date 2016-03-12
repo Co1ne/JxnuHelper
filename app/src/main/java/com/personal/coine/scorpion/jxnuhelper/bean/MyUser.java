@@ -28,7 +28,7 @@ public class MyUser extends BmobUser {
     private String city;
     private String district;
     private String personalSign;
-    private String userAvadarName;
+    private String userAvadarPath;
 
     public String getSex() {
         return sex;
@@ -70,11 +70,11 @@ public class MyUser extends BmobUser {
         this.personalSign = personalSign;
     }
 
-    public String getUserAvadarName() {
-        return userAvadarName;
+    public String getUserAvadarPath() {
+        return userAvadarPath;
     }
 
-    public void setUserAvadarName(String userAvadarName) {
-        this.userAvadarName = userAvadarName;
+    public void setUserAvadarPath(String userAvadarPath) {
+        this.userAvadarPath = userAvadarPath;
     }
 }

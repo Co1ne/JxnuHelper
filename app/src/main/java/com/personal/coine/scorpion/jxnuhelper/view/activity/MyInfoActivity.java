@@ -38,14 +38,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.OptionsPickerView;
-import com.bmob.BmobProFile;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.personal.coine.scorpion.jxnuhelper.Constants;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.bean.CityBean;
 import com.personal.coine.scorpion.jxnuhelper.bean.DistrictBean;
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.bean.ProvinceBean;
-import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
 import com.personal.coine.scorpion.jxnuhelper.presenter.UserInfoPresenter;
 import com.personal.coine.scorpion.jxnuhelper.utils.OthersUtils;
 import com.personal.coine.scorpion.jxnuhelper.utils.XmlParserHandler;
@@ -65,7 +64,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.BmobUser;
 
 /**
  * Description:
@@ -88,19 +87,24 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private KProgressHUD loginProgress;
     private Uri fileUri;
     private ImageView userAvadarImg;
+    private MyUser currentUser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
+        currentUser = BmobUser.getCurrentUser(this,MyUser.class);
         initViews();
     }
 
     private void initViews() {
         userAvadarImg = (ImageView) findViewById(R.id.user_avadar_img);
         userPresenter.loadUserAvadar();
-        ((TextView) findViewById(R.id.user_name)).setText(ApplicationDelegate.getInstance().getCurrentUser().getUsername());
-        ((TextView) findViewById(R.id.phone_number)).setText(ApplicationDelegate.getInstance().getCurrentUser().getMobilePhoneNumber());
+        ((TextView) findViewById(R.id.user_name)).setText(currentUser.getUsername());
+        ((TextView) findViewById(R.id.phone_number)).setText(currentUser.getMobilePhoneNumber());
+        ((TextView) findViewById(R.id.sex)).setText(currentUser.getSex());
+        ((TextView) findViewById(R.id.hometown)).setText(currentUser.getProvince() + "," + currentUser.getCity() + "," + currentUser.getDistrict());
+        ((TextView) findViewById(R.id.personal_sign)).setText(currentUser.getPersonalSign());
 
         findViewById(R.id.row_avadar).setOnClickListener(this);
         findViewById(R.id.row_username).setOnClickListener(this);
@@ -156,6 +160,18 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 areaPickerView.show();
                 break;
             case R.id.row_personal_sign:
+                final EditText personalSignText = new EditText(this);
+                new AlertDialog.Builder(this).setTitle("编辑个性签名").setView(personalSignText).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        personalSignText.getText();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
                 break;
             default:
                 break;
@@ -257,8 +273,10 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PICK_IMAGE) {
-            Uri uri = data.getData();
-            crop(uri);
+            if (data.getData() != null) {
+                Uri uri = data.getData();
+                crop(uri);
+            }
         } else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
             crop(fileUri);
         } else if (requestCode == PHOTO_REQUEST_CUT) {

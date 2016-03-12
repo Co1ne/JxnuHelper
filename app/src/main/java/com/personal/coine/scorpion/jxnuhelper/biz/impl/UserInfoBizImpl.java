@@ -18,10 +18,16 @@ import android.content.Context;
 
 import com.bmob.BTPFileResponse;
 import com.bmob.BmobProFile;
-import com.bmob.btp.callback.DownloadListener;
 import com.bmob.btp.callback.UploadListener;
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
-import com.personal.coine.scorpion.jxnuhelper.core.ApplicationDelegate;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+
+import java.io.IOException;
+
+import cn.bmob.v3.BmobUser;
 
 /**
  * Description:
@@ -37,7 +43,15 @@ public class UserInfoBizImpl implements IUserInfoBiz {
     }
 
     @Override
-    public void loadUserAvadar(Context context, DownloadListener downloadListener) {
-        BmobProFile.getInstance(context).download(ApplicationDelegate.getInstance().getCurrentUser().getUserAvadarName(), downloadListener);
+    public void loadUserAvadar(final Context context, final Callback callback) {
+
+        final OkHttpClient client = new OkHttpClient();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Request request = new Request.Builder().url(BmobUser.getCurrentUser(context, MyUser.class).getUserAvadarPath()).build();
+                client.newCall(request).enqueue(callback);
+            }
+        }).start();
     }
 }

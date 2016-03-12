@@ -29,7 +29,7 @@ import cn.bmob.v3.listener.LogInListener;
  */
 public class LoginBizImpl implements ILoginBiz {
     @Override
-    public void login(Context context, String phoneNumber, String password, LogInListener logInListener) {
+    public void login(Context context, String phoneNumber, String password, LogInListener<MyUser> logInListener) {
         MyUser.loginByAccount(context, phoneNumber, password, logInListener);
     }
 }
