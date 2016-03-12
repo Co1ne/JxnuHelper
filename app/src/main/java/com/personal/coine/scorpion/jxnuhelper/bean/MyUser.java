@@ -99,4 +99,5 @@ public class MyUser extends BmobUser {
     public void setStuAcademy(Academy stuAcademy) {
         this.stuAcademy = stuAcademy;
     }
+
 }

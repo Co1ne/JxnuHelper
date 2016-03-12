@@ -19,13 +19,16 @@ import android.content.Context;
 import com.bmob.BTPFileResponse;
 import com.bmob.BmobProFile;
 import com.bmob.btp.callback.UploadListener;
+import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -57,5 +60,11 @@ public class UserInfoBizImpl implements IUserInfoBiz {
     @Override
     public void updateUserInfo(Context context, MyUser updateUser, UpdateListener updateListener) {
         updateUser.update(context, BmobUser.getCurrentUser(context, MyUser.class).getObjectId(), updateListener);
+    }
+
+    @Override
+    public void loadUserAcademy(Context context, String objectId, GetListener<Academy> getListener) {
+        BmobQuery<Academy> query = new BmobQuery<>();
+        query.getObject(context, objectId, getListener);
     }
 }

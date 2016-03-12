@@ -15,6 +15,7 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
 
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public interface IUserInfoView {
 
@@ -42,4 +43,6 @@ public interface IUserInfoView {
 
     String getPersonalSign();
     void refreshViews();
+
+    TextView getAcademyTextView();
 }

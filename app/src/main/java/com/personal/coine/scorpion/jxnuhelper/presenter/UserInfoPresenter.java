@@ -22,6 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bmob.btp.callback.UploadListener;
+import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.UserInfoBizImpl;
@@ -35,6 +36,7 @@ import java.io.InputStream;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 /**
@@ -158,6 +160,21 @@ public class UserInfoPresenter {
             public void onFailure(int i, String s) {
                 Toast.makeText(userInfoView.getThisContext(), "更新用户信息失败", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "更新用户信息失败," + s);
+            }
+        });
+    }
+
+    public void loadUserAcademy() {
+        userInfoBiz.loadUserAcademy(userInfoView.getThisContext(), BmobUser.getCurrentUser(userInfoView.getThisContext(), MyUser.class).getStuAcademy().getObjectId(), new GetListener<Academy>() {
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(userInfoView.getThisContext(), "获取您的学院信息好像失败了...", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, i + "<---->获取学院信息失败:" + s);
+            }
+
+            @Override
+            public void onSuccess(Academy academy) {
+                userInfoView.getAcademyTextView().setText(academy.getAcademyName() + "," + academy.getClassName());
             }
         });
     }

@@ -93,6 +93,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private String checkedCity = "";
     private String checkedDistrict = "";
     private EditText personalSignText;
+    private TextView userAcademyText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,7 +111,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
 
     private void initViews() {
         MyUser currentUser = BmobUser.getCurrentUser(this, MyUser.class);
+        userAcademyText = ((TextView) findViewById(R.id.user_academy_text));
         userAvadarImg = (ImageView) findViewById(R.id.user_avadar_img);
+        userPresenter.loadUserAcademy();
         userPresenter.loadUserAvadar();
         ((TextView) findViewById(R.id.user_name)).setText(currentUser.getUsername());
         ((TextView) findViewById(R.id.phone_number)).setText(currentUser.getMobilePhoneNumber());
@@ -347,7 +350,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra("outputFormat", "JPEG");
         intent.putExtra("noFaceDetection", true);// 取消人脸识别
         intent.putExtra("return-data", true);// true:不返回uri，false：返回uri
-        startActivityForResult(intent,Constants. PHOTO_REQUEST_CUT);
+        startActivityForResult(intent, Constants.PHOTO_REQUEST_CUT);
     }
 
     @Override
@@ -419,6 +422,11 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void refreshViews() {
         initViews();
+    }
+
+    @Override
+    public TextView getAcademyTextView() {
+        return userAcademyText;
     }
 
     @Override

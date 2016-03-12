@@ -143,6 +143,11 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
     }
 
     @Override
+    public TextView getAcademyTextView() {
+        return null;
+    }
+
+    @Override
     public void onResume() {
         refreshViews();
         super.onResume();

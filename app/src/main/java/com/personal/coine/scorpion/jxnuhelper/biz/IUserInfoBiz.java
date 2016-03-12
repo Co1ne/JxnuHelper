@@ -16,9 +16,11 @@ package com.personal.coine.scorpion.jxnuhelper.biz;/*
 import android.content.Context;
 
 import com.bmob.btp.callback.UploadListener;
+import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.squareup.okhttp.Callback;
 
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
 public interface IUserInfoBiz {
@@ -27,4 +29,6 @@ public interface IUserInfoBiz {
     void loadUserAvadar(Context context,Callback callback);
 
     void updateUserInfo(Context context,MyUser updateUser, UpdateListener updateListener);
+
+    void loadUserAcademy(Context context, String objectId, GetListener<Academy> getListener);
 }
