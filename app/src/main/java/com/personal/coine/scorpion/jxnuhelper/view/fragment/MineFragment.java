@@ -42,11 +42,12 @@ import cn.bmob.v3.BmobUser;
 public class MineFragment extends Fragment implements View.OnClickListener, IUserInfoView {
     private ImageView userAvadarImg;
     private UserInfoPresenter userInfoPresenter = new UserInfoPresenter(this);
+    private View view;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, null);
+        view = inflater.inflate(R.layout.fragment_mine, null);
         initViews(view);
         return view;
     }
@@ -56,8 +57,6 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
         userAvadarImg = (ImageView) view.findViewById(R.id.user_avadar_img);
         userInfoPresenter.loadUserAvadar();
         view.findViewById(R.id.mine_page_row1).setOnClickListener(this);
-        view.findViewById(R.id.mine_page_row2).setOnClickListener(this);
-        view.findViewById(R.id.mine_page_row3).setOnClickListener(this);
         view.findViewById(R.id.mine_page_row4).setOnClickListener(this);
         view.findViewById(R.id.mine_page_row5).setOnClickListener(this);
         view.findViewById(R.id.mine_page_row6).setOnClickListener(this);
@@ -68,10 +67,6 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
         switch (v.getId()) {
             case R.id.mine_page_row1:
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
-                break;
-            case R.id.mine_page_row2:
-                break;
-            case R.id.mine_page_row3:
                 break;
             case R.id.mine_page_row4:
                 break;
@@ -110,5 +105,46 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
     @Override
     public ImageView getAvadarView() {
         return userAvadarImg;
+    }
+
+    @Override
+    public String getUserName() {
+        return null;
+    }
+
+    @Override
+    public String getSex() {
+        return null;
+    }
+
+    @Override
+    public String getProvince() {
+        return null;
+    }
+
+    @Override
+    public String getCity() {
+        return null;
+    }
+
+    @Override
+    public String getDistrict() {
+        return null;
+    }
+
+    @Override
+    public String getPersonalSign() {
+        return null;
+    }
+
+    @Override
+    public void refreshViews() {
+        initViews(view);
+    }
+
+    @Override
+    public void onResume() {
+        refreshViews();
+        super.onResume();
     }
 }

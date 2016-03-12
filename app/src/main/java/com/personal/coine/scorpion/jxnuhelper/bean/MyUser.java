@@ -29,6 +29,20 @@ public class MyUser extends BmobUser {
     private String district;
     private String personalSign;
     private String userAvadarPath;
+    private Academy stuAcademy;
+
+    public MyUser() {
+    }
+
+    public MyUser(String sex, String province, String city, String district, String personalSign, String userAvadarPath, Academy stuAcademy) {
+        this.sex = sex;
+        this.province = province;
+        this.city = city;
+        this.district = district;
+        this.personalSign = personalSign;
+        this.userAvadarPath = userAvadarPath;
+        this.stuAcademy = stuAcademy;
+    }
 
     public String getSex() {
         return sex;
@@ -76,5 +90,13 @@ public class MyUser extends BmobUser {
 
     public void setUserAvadarPath(String userAvadarPath) {
         this.userAvadarPath = userAvadarPath;
+    }
+
+    public Academy getStuAcademy() {
+        return stuAcademy;
+    }
+
+    public void setStuAcademy(Academy stuAcademy) {
+        this.stuAcademy = stuAcademy;
     }
 }

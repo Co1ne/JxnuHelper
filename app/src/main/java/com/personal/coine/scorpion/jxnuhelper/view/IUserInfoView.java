@@ -29,4 +29,17 @@ public interface IUserInfoView {
     void hideLoading();
 
     ImageView getAvadarView();
+
+    String getUserName();
+
+    String getSex();
+
+    String getProvince();
+
+    String getCity();
+
+    String getDistrict();
+
+    String getPersonalSign();
+    void refreshViews();
 }

@@ -10,22 +10,23 @@
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/7  1.0     huangwei    Creation File
+ * 2016/3/12  1.0     huangwei    Creation File
  */
-package com.personal.coine.scorpion.jxnuhelper;
+package com.personal.coine.scorpion.jxnuhelper.biz;
 
-import android.os.Environment;
+import android.content.Context;
+
+import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
+import com.personal.coine.scorpion.jxnuhelper.bean.Course;
+
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Description:
  *
  * @author huangwei
- *         Date 2016/3/7
+ *         Date 2016/3/12
  */
-public class Constants {
-    public static final String SAVED_IMAGE_DIR_PATH = Environment.getExternalStorageDirectory().toString() + "/jxnu/";
-    public static final int REQUEST_CODE_PICK_IMAGE = 1;
-    public static final int REQUEST_CODE_CAPTURE_CAMEIA = 2;
-    public static final int PHOTO_REQUEST_CUT = 3;
-
+public interface ICourseBiz {
+    void loadCourseData(Context context,Academy belongAcademy,FindListener<Course> findListener);
 }

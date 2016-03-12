@@ -29,6 +29,7 @@
         <activity android:name=".view.activity.RegisterActivity" />
         <activity android:name=".view.activity.NewsDetailActivity" />
         <activity android:name=".view.activity.MyInfoActivity" />
+        <activity android:name=".view.activity.CourseQueryActivity" />
     </application>
 
 </manifest>

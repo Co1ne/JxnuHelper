@@ -24,9 +24,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -74,9 +76,7 @@ import cn.bmob.v3.BmobUser;
  */
 public class MyInfoActivity extends AppCompatActivity implements View.OnClickListener, IUserInfoView {
     private static final String TAG = MyInfoActivity.class.getSimpleName();
-    private static final int REQUEST_CODE_PICK_IMAGE = 1;
-    private static final int REQUEST_CODE_CAPTURE_CAMEIA = 2;
-    private static final int PHOTO_REQUEST_CUT = 3;
+
     private View vMasker;
     private OptionsPickerView areaPickerView;
     private ArrayList<String> provinceList = new ArrayList<>();
@@ -87,17 +87,29 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private KProgressHUD loginProgress;
     private Uri fileUri;
     private ImageView userAvadarImg;
-    private MyUser currentUser;
+    private EditText nameInput;
+    private String userSex = "";
+    private String checkedProvince = "";
+    private String checkedCity = "";
+    private String checkedDistrict = "";
+    private EditText personalSignText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_info);
-        currentUser = BmobUser.getCurrentUser(this,MyUser.class);
+        initActionBar();
         initViews();
     }
 
+    private void initActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("个人资料");
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
     private void initViews() {
+        MyUser currentUser = BmobUser.getCurrentUser(this, MyUser.class);
         userAvadarImg = (ImageView) findViewById(R.id.user_avadar_img);
         userPresenter.loadUserAvadar();
         ((TextView) findViewById(R.id.user_name)).setText(currentUser.getUsername());
@@ -123,11 +135,11 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 choosePic();
                 break;
             case R.id.row_username:
-                final EditText nameInput = new EditText(this);
+                nameInput = new EditText(this);
                 new AlertDialog.Builder(this).setTitle("编辑昵称").setView(nameInput).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        nameInput.getText();
+                        userPresenter.updateUserInfo();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -150,8 +162,8 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 sexList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Log.d(TAG, sexChoice[position]);
-                        choiceDialog.dismiss();
+                        userSex = sexChoice[position];
+                        userPresenter.updateUserInfo();
                     }
                 });
                 break;
@@ -160,11 +172,11 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 areaPickerView.show();
                 break;
             case R.id.row_personal_sign:
-                final EditText personalSignText = new EditText(this);
+                personalSignText = new EditText(this);
                 new AlertDialog.Builder(this).setTitle("编辑个性签名").setView(personalSignText).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        personalSignText.getText();
+                        userPresenter.updateUserInfo();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -205,7 +217,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             fileUri = Uri.fromFile(new File(photoName));
             getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
             getImageByCamera.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-            startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMEIA);
+            startActivityForResult(getImageByCamera, Constants.REQUEST_CODE_CAPTURE_CAMEIA);
         } else {
             Toast.makeText(getApplicationContext(), "请确认已经插入SD卡", Toast.LENGTH_LONG).show();
         }
@@ -214,7 +226,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private void pickPhoto() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");//相片类型
-        startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
+        startActivityForResult(intent, Constants.REQUEST_CODE_PICK_IMAGE);
     }
 
     private void initAreaPicker() {
@@ -265,6 +277,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         areaPickerView.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3) {
+                checkedProvince = provinceList.get(options1);
+                checkedCity = cityList.get(options1).get(option2);
+                checkedDistrict = districtList.get(options1).get(option2).get(options3);
                 vMasker.setVisibility(View.GONE);
             }
         });
@@ -272,14 +287,14 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_PICK_IMAGE) {
+        if (requestCode == Constants.REQUEST_CODE_PICK_IMAGE) {
             if (data.getData() != null) {
                 Uri uri = data.getData();
                 crop(uri);
             }
-        } else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA) {
+        } else if (requestCode == Constants.REQUEST_CODE_CAPTURE_CAMEIA) {
             crop(fileUri);
-        } else if (requestCode == PHOTO_REQUEST_CUT) {
+        } else if (requestCode == Constants.PHOTO_REQUEST_CUT) {
             try {
                 Bitmap bitmap = data.getParcelableExtra("data");
                 String filePath = saveBitmapFile(bitmap);
@@ -332,7 +347,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra("outputFormat", "JPEG");
         intent.putExtra("noFaceDetection", true);// 取消人脸识别
         intent.putExtra("return-data", true);// true:不返回uri，false：返回uri
-        startActivityForResult(intent, PHOTO_REQUEST_CUT);
+        startActivityForResult(intent,Constants. PHOTO_REQUEST_CUT);
     }
 
     @Override
@@ -363,5 +378,54 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public ImageView getAvadarView() {
         return userAvadarImg;
+    }
+
+    @Override
+    public String getUserName() {
+        if (nameInput != null && nameInput.getText() != null) {
+            return nameInput.getText().toString();
+        }
+        return "";
+    }
+
+    @Override
+    public String getSex() {
+        return userSex;
+    }
+
+    @Override
+    public String getProvince() {
+        return checkedProvince;
+    }
+
+    @Override
+    public String getCity() {
+        return checkedCity;
+    }
+
+    @Override
+    public String getDistrict() {
+        return checkedDistrict;
+    }
+
+    @Override
+    public String getPersonalSign() {
+        if (personalSignText != null && personalSignText.getText() != null) {
+            return personalSignText.getText().toString();
+        }
+        return "";
+    }
+
+    @Override
+    public void refreshViews() {
+        initViews();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

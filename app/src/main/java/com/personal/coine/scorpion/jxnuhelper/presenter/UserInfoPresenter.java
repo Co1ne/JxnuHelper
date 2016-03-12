@@ -127,4 +127,38 @@ public class UserInfoPresenter {
             });
         }
     }
+
+    public void updateUserInfo() {
+        MyUser updateUser = new MyUser();
+        if (userInfoView.getUserName() != null && !userInfoView.getUserName().equals("")) {
+            updateUser.setUsername(userInfoView.getUserName());
+        }
+        if (userInfoView.getSex() != null && !userInfoView.getSex().equals("")) {
+            updateUser.setSex(userInfoView.getSex());
+        }
+        if (userInfoView.getProvince() != null && !userInfoView.getProvince().equals("")) {
+            updateUser.setProvince(userInfoView.getProvince());
+        }
+        if (userInfoView.getCity() != null && !userInfoView.getCity().equals("")) {
+            updateUser.setCity(userInfoView.getCity());
+        }
+        if (userInfoView.getDistrict() != null && !userInfoView.getDistrict().equals("")) {
+            updateUser.setDistrict(userInfoView.getDistrict());
+        }
+        if (userInfoView.getPersonalSign() != null && !userInfoView.getPersonalSign().equals("")) {
+            updateUser.setPersonalSign(userInfoView.getPersonalSign());
+        }
+        userInfoBiz.updateUserInfo(userInfoView.getThisContext(), updateUser, new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                userInfoView.refreshViews();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(userInfoView.getThisContext(), "更新用户信息失败", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "更新用户信息失败," + s);
+            }
+        });
+    }
 }

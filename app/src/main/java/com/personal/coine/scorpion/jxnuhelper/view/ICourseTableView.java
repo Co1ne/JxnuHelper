@@ -1,4 +1,4 @@
-/*
+package com.personal.coine.scorpion.jxnuhelper.view;/*
  * Copyright(c) Runsdata Technologies Co., Ltd.
  * All Rights Reserved.
  *
@@ -10,22 +10,18 @@
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/7  1.0     huangwei    Creation File
+ * 2016/3/12  1.0     huangwei    Creation File
  */
-package com.personal.coine.scorpion.jxnuhelper;
 
-import android.os.Environment;
+import android.content.Context;
+import android.view.View;
 
-/**
- * Description:
- *
- * @author huangwei
- *         Date 2016/3/7
- */
-public class Constants {
-    public static final String SAVED_IMAGE_DIR_PATH = Environment.getExternalStorageDirectory().toString() + "/jxnu/";
-    public static final int REQUEST_CODE_PICK_IMAGE = 1;
-    public static final int REQUEST_CODE_CAPTURE_CAMEIA = 2;
-    public static final int PHOTO_REQUEST_CUT = 3;
+public interface ICourseTableView {
+    void showLoading();
 
+    void hideLoading();
+
+    Context getThisContext();
+
+    View getContentView();
 }

@@ -25,9 +25,8 @@ import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
-import java.io.IOException;
-
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Description:
@@ -53,5 +52,10 @@ public class UserInfoBizImpl implements IUserInfoBiz {
                 client.newCall(request).enqueue(callback);
             }
         }).start();
+    }
+
+    @Override
+    public void updateUserInfo(Context context, MyUser updateUser, UpdateListener updateListener) {
+        updateUser.update(context, BmobUser.getCurrentUser(context, MyUser.class).getObjectId(), updateListener);
     }
 }
