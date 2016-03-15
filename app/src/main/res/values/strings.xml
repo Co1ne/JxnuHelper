@@ -12,4 +12,7 @@
     <string name="tab_title_news">校园资讯</string>
     <string name="tab_title_mine">我的</string>
     <string name="user_avadar">用户头像</string>
+    <string name="my_card">我的卡</string>
+    <string name="classmate_card">同学的卡</string>
+
 </resources>

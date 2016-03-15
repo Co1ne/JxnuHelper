@@ -47,7 +47,7 @@ public class CommonQueryFragment extends Fragment {
     private void initViews(View view) {
         view.findViewById(R.id.today_weather);
         ListView queryList = (ListView) view.findViewById(R.id.query_choice);
-        QueryListViewAdapter adapter = new QueryListViewAdapter(getActivity(), new String[]{"课表查询", "电费查询", "学期考试", "自习室", "成绩查询", "校历查询"}, new int[]{R.drawable.query_class, R.drawable.electric_charge, R.drawable.exam_plan_, R.drawable.self_learn_room, R.drawable.grade_query, R.drawable.school_calendar});
+        QueryListViewAdapter adapter = new QueryListViewAdapter(getActivity(), new String[]{"课表查询", "校园卡缴费", "学期考试", "自习室", "成绩查询", "校历查询"}, new int[]{R.drawable.query_class, R.drawable.electric_charge, R.drawable.exam_plan_, R.drawable.self_learn_room, R.drawable.grade_query, R.drawable.school_calendar});
         queryList.setAdapter(adapter);
         queryList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
