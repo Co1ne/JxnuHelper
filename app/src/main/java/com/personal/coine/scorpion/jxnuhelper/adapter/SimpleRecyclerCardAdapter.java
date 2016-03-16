@@ -15,12 +15,10 @@
 package com.personal.coine.scorpion.jxnuhelper.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.personal.coine.scorpion.jxnuhelper.R;
@@ -35,21 +33,23 @@ import java.util.List;
  *         Date 2016/3/12
  */
 public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter<SimpleRecyclerCardAdapter.SimpleCardViewHolder> {
-    private final List<String> mDataSource = new ArrayList<>();
-    private final List<Bitmap> mImageSource = new ArrayList<>();
+    private final List<String> mExamTitle = new ArrayList<>();
+    private final List<String> mExamDate = new ArrayList<>();
+    private final List<String> mExamContent = new ArrayList<>();
     private LayoutInflater mInflater;
     private OnItemActionListener mOnItemActionListener;
 
-    public SimpleRecyclerCardAdapter(Context context, List<String> dataSource, List<Bitmap> bitmapList) {
+    public SimpleRecyclerCardAdapter(Context context, List<String> examTitleList, List<String> examDateList, List<String> examContentList) {
         super();
         this.mInflater = LayoutInflater.from(context);
-        this.mDataSource.addAll(dataSource);
-        mImageSource.addAll(bitmapList);
+        this.mExamTitle.addAll(examTitleList);
+        this.mExamDate.addAll(examDateList);
+        this.mExamContent.addAll(examContentList);
     }
 
     @Override
     public SimpleCardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflateView = mInflater.inflate(R.layout.recycler_card_item, null);
+        View inflateView = mInflater.inflate(R.layout.exam_recycler_item, null);
         SimpleCardViewHolder simpleCardViewHolder = new SimpleCardViewHolder(inflateView);
         simpleCardViewHolder.setIsRecyclable(true);
         return simpleCardViewHolder;
@@ -57,13 +57,14 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter<SimpleRecycl
 
     @Override
     public int getItemCount() {
-        return mDataSource.size();
+        return mExamTitle.size();
     }
 
     @Override
     public void onBindViewHolder(final SimpleCardViewHolder holder, int position) {
-        holder.descriptionText.setText(mDataSource.get(position));
-        holder.memoryImage.setImageBitmap(mImageSource.get(position));
+        holder.examTitle.setText(mExamTitle.get(position));
+        holder.examDate.setText(mExamDate.get(position));
+        holder.examContent.setText(mExamContent.get(position));
         if (mOnItemActionListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,13 +94,15 @@ public class SimpleRecyclerCardAdapter extends RecyclerView.Adapter<SimpleRecycl
     }
 
     class SimpleCardViewHolder extends RecyclerView.ViewHolder {
-        private TextView descriptionText;
-        private ImageView memoryImage;
+        private TextView examTitle;
+        private TextView examDate;
+        private TextView examContent;
 
         public SimpleCardViewHolder(View itemView) {
             super(itemView);
-            descriptionText = (TextView) itemView.findViewById(R.id.item_description);
-            memoryImage = (ImageView) itemView.findViewById(R.id.item_memory_img);
+            examTitle = (TextView) itemView.findViewById(R.id.exam_title);
+            examDate = (TextView) itemView.findViewById(R.id.exam_date);
+            examContent = (TextView) itemView.findViewById(R.id.exam_content);
         }
     }
 }
