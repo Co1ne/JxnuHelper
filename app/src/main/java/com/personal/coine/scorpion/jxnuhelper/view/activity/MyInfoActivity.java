@@ -42,6 +42,7 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.personal.coine.scorpion.jxnuhelper.Constants;
 import com.personal.coine.scorpion.jxnuhelper.R;
+import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.CityBean;
 import com.personal.coine.scorpion.jxnuhelper.bean.DistrictBean;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
@@ -93,6 +94,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     private String checkedDistrict = "";
     private EditText personalSignText;
     private TextView userAcademyText;
+    private EditText userCardNumber;
+    private TextView cardNumberText;
+    private CampusCard currentUserCard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,7 +118,9 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         userAvadarImg = (ImageView) findViewById(R.id.user_avadar_img);
         userPresenter.loadUserAcademy();
         userPresenter.loadUserAvadar();
+        userPresenter.loadUserCardNumber();
         ((TextView) findViewById(R.id.user_name)).setText(currentUser.getUsername());
+        cardNumberText = (TextView) findViewById(R.id.user_card_number_text);
         ((TextView) findViewById(R.id.phone_number)).setText(currentUser.getMobilePhoneNumber());
         ((TextView) findViewById(R.id.sex)).setText(currentUser.getSex());
         ((TextView) findViewById(R.id.hometown)).setText(currentUser.getProvince() + "," + currentUser.getCity() + "," + currentUser.getDistrict());
@@ -125,6 +131,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.row_sex).setOnClickListener(this);
         findViewById(R.id.row_hometown).setOnClickListener(this);
         findViewById(R.id.row_personal_sign).setOnClickListener(this);
+        findViewById(R.id.row_card_number).setOnClickListener(this);
         vMasker = findViewById(R.id.vMasker);
         initAreaPicker();
         loginProgress = KProgressHUD.create(this).setStyle(KProgressHUD.Style.PIE_DETERMINATE).setLabel("正在处理...").setCancellable(false).setAnimationSpeed(2).setDimAmount(0.5f).setMaxProgress(100);
@@ -182,6 +189,20 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         userPresenter.updateUserInfo();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+                break;
+            case R.id.row_card_number:
+                userCardNumber = new EditText(this);
+                new AlertDialog.Builder(this).setTitle("编辑校园卡号").setView(userCardNumber).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userPresenter.updateCardNumber();
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -286,6 +307,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                 checkedCity = cityList.get(options1).get(option2);
                 checkedDistrict = districtList.get(options1).get(option2).get(options3);
                 vMasker.setVisibility(View.GONE);
+                userPresenter.updateUserInfo();
             }
         });
     }
@@ -437,5 +459,29 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public String getCardNumber() {
+        if (userCardNumber != null && userCardNumber.getText() != null) {
+            return String.valueOf(userCardNumber.getText());
+        }
+        return "";
+    }
+
+    @Override
+    public void showUserCardNumber(CampusCard campusCard) {
+        currentUserCard=campusCard;
+        cardNumberText.setText(campusCard.getCardNumber());
+    }
+
+    @Override
+    public void showError(String errorMsg) {
+        Toast.makeText(MyInfoActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public CampusCard getCard() {
+        return currentUserCard;
     }
 }

@@ -17,9 +17,11 @@ import android.content.Context;
 
 import com.bmob.btp.callback.UploadListener;
 import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
+import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.squareup.okhttp.Callback;
 
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -31,4 +33,8 @@ public interface IUserInfoBiz {
     void updateUserInfo(Context context,MyUser updateUser, UpdateListener updateListener);
 
     void loadUserAcademy(Context context, String objectId, GetListener<Academy> getListener);
+
+    void loadUserCardNumber(Context context, MyUser currentUser, FindListener<CampusCard> findListener);
+
+    void updateCardNumber(Context context, CampusCard modifiedCampusCard, String cardNumber, UpdateListener updateListener);
 }

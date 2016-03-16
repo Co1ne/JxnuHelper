@@ -96,6 +96,34 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/row_card_number"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:background="@drawable/shape_no_corner_without_bottom"
+            android:gravity="center_vertical"
+            android:paddingBottom="@dimen/bootstrap_h2_hori_padding"
+            android:paddingTop="@dimen/bootstrap_h2_hori_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10.0dip"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:paddingLeft="17.0dip"
+                android:text="校园卡号"
+                android:textColor="#ff333333"
+                android:textSize="16.0sp" />
+
+            <TextView
+                android:id="@+id/user_card_number_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="20.0dip" />
+        </TableRow>
+
+        <TableRow
             android:id="@+id/row_phone_number"
             android:layout_width="match_parent"
             android:layout_marginLeft="2.0dip"

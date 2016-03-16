@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.personal.coine.scorpion.jxnuhelper.R;
+import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.presenter.UserInfoPresenter;
 import com.personal.coine.scorpion.jxnuhelper.view.IUserInfoView;
@@ -151,5 +152,25 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
     public void onResume() {
         refreshViews();
         super.onResume();
+    }
+
+    @Override
+    public String getCardNumber() {
+        return "";
+    }
+
+    @Override
+    public void showUserCardNumber(CampusCard campusCard) {
+
+    }
+
+    @Override
+    public void showError(String errorMsg) {
+
+    }
+
+    @Override
+    public CampusCard getCard() {
+        return null;
     }
 }

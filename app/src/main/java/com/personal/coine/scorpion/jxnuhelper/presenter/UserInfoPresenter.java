@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.bmob.btp.callback.UploadListener;
 import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
+import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.personal.coine.scorpion.jxnuhelper.biz.impl.UserInfoBizImpl;
@@ -33,9 +34,11 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -165,7 +168,7 @@ public class UserInfoPresenter {
     }
 
     public void loadUserAcademy() {
-        userInfoBiz.loadUserAcademy(userInfoView.getThisContext(), BmobUser.getCurrentUser(userInfoView.getThisContext(), MyUser.class).getStuAcademy().getObjectId(), new GetListener<Academy>() {
+        userInfoBiz.loadUserAcademy(userInfoView.getThisContext(), BmobUser.getCurrentUser(userInfoView.getThisContext(), MyUser.class).getStuAcademy() == null ? "" : BmobUser.getCurrentUser(userInfoView.getThisContext(), MyUser.class).getStuAcademy().getObjectId(), new GetListener<Academy>() {
             @Override
             public void onFailure(int i, String s) {
                 Toast.makeText(userInfoView.getThisContext(), "获取您的学院信息好像失败了...", Toast.LENGTH_SHORT).show();
@@ -175,6 +178,36 @@ public class UserInfoPresenter {
             @Override
             public void onSuccess(Academy academy) {
                 userInfoView.getAcademyTextView().setText(academy.getAcademyName() + "," + academy.getClassName());
+            }
+        });
+    }
+
+    public void loadUserCardNumber() {
+        userInfoBiz.loadUserCardNumber(userInfoView.getThisContext(), BmobUser.getCurrentUser(userInfoView.getThisContext(), MyUser.class), new FindListener<CampusCard>() {
+            @Override
+            public void onSuccess(List<CampusCard> list) {
+                userInfoView.showUserCardNumber(list.get(0));
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                userInfoView.showError("对不起，获取校园卡号失败");
+                Log.e(TAG, "获取校园卡号失败:" + s);
+            }
+        });
+    }
+
+    public void updateCardNumber() {
+        userInfoBiz.updateCardNumber(userInfoView.getThisContext(), userInfoView.getCard(), userInfoView.getCardNumber(), new UpdateListener() {
+            @Override
+            public void onSuccess() {
+                loadUserCardNumber();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                userInfoView.showError("对不起，更新校园卡号失败");
+                Log.e(TAG, "更新卡失败" + s);
             }
         });
     }

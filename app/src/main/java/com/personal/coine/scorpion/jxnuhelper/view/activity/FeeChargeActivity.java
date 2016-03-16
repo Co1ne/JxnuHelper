@@ -26,6 +26,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.personal.coine.scorpion.jxnuhelper.R;
 import com.personal.coine.scorpion.jxnuhelper.view.fragment.ChargeMyCardFragment;
+import com.personal.coine.scorpion.jxnuhelper.view.fragment.ChargeOthersCardFragment;
 
 /**
  * Description:校园卡查询、缴费￥￥￥
@@ -46,7 +47,7 @@ public class FeeChargeActivity extends AppCompatActivity {
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.my_card, ChargeMyCardFragment.class)
-                .add(R.string.classmate_card, ChargeMyCardFragment.class)
+                .add(R.string.classmate_card, ChargeOthersCardFragment.class)
                 .create());
         ViewPager mainViewPager = (ViewPager) findViewById(R.id.charge_view_pager);
         mainViewPager.setAdapter(adapter);

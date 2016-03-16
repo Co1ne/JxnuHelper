@@ -20,6 +20,7 @@ import com.bmob.BTPFileResponse;
 import com.bmob.BmobProFile;
 import com.bmob.btp.callback.UploadListener;
 import com.personal.coine.scorpion.jxnuhelper.bean.Academy;
+import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.biz.IUserInfoBiz;
 import com.squareup.okhttp.Callback;
@@ -28,6 +29,7 @@ import com.squareup.okhttp.Request;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -66,5 +68,26 @@ public class UserInfoBizImpl implements IUserInfoBiz {
     public void loadUserAcademy(Context context, String objectId, GetListener<Academy> getListener) {
         BmobQuery<Academy> query = new BmobQuery<>();
         query.getObject(context, objectId, getListener);
+    }
+
+    @Override
+    public void loadUserCardNumber(Context context, MyUser currentUser, FindListener<CampusCard> findListener) {
+        BmobQuery<CampusCard> query = new BmobQuery<>();
+        query.addWhereEqualTo("owner", currentUser);
+        query.findObjects(context, findListener);
+    }
+
+    @Override
+    public void updateCardNumber(Context context, CampusCard modifiedCampusCard, String cardNumber, UpdateListener updateListener) {
+        CampusCard newCampusCard = new CampusCard();
+        if (modifiedCampusCard != null) {
+            newCampusCard.setValue("cardNumber", cardNumber);
+            newCampusCard.update(context, modifiedCampusCard.getObjectId(), updateListener);
+        } else {
+            newCampusCard.setCardNumber(cardNumber);
+            newCampusCard.setOwner(BmobUser.getCurrentUser(context, MyUser.class));
+            newCampusCard.setCardBalance(0);
+            newCampusCard.save(context);
+        }
     }
 }

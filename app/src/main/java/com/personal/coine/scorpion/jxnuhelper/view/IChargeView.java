@@ -10,49 +10,26 @@ package com.personal.coine.scorpion.jxnuhelper.view;/*
  *
  * Revision History
  * Date     Version     Name        Description
- * 2016/3/10  1.0     huangwei    Creation File
+ * 2016/3/16  1.0     huangwei    Creation File
  */
 
 import android.content.Context;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
+import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 
-public interface IUserInfoView {
+public interface IChargeView {
+    MyUser loadChargeUser();
 
-    Context getThisContext();
+    Integer loadChargeSum();
 
-    String getUserAvadarPath();
+    Context loadThisContext();
 
-    void showLoading();
-
-    void showLoadingProgress(int progress);
-
-    void hideLoading();
-
-    ImageView getAvadarView();
-
-    String getUserName();
-
-    String getSex();
-
-    String getProvince();
-
-    String getCity();
-
-    String getDistrict();
-
-    String getPersonalSign();
-    void refreshViews();
-
-    TextView getAcademyTextView();
-
-    String getCardNumber();
-
-    void showUserCardNumber(CampusCard campusCard);
+    void showSuccess(String msg);
 
     void showError(String errorMsg);
 
-    CampusCard getCard();
+    void showCardInfo(CampusCard campusCard);
+
+    CampusCard loadCardInfo();
 }

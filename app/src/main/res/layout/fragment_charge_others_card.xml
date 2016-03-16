@@ -3,42 +3,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.6"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/my_card_number"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_user_card_number"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:hint="请输入10位校园卡号"
+                android:inputType="number" />
 
             <TextView
-                android:id="@+id/my_name"
+                android:id="@+id/others_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_vertical_margin" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/user_balance"
-            android:layout_width="wrap_content"
+
+            android:id="@+id/others_balance"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_weight="0.4"
             android:padding="@dimen/bootstrap_button_default_hori_padding"
             android:textColor="@android:color/holo_red_light" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <GridView
-        android:id="@+id/charge_amount"
+        android:id="@+id/others_charge_amount"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="90dp"
