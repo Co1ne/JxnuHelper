@@ -48,7 +48,6 @@ public class NewsPresenter {
     }
 
     public void requestNewsData() {
-        newsView.showLoading();
         newsBiz.getNewsData(newsView.getFragmentContext(), new FindListener<News>() {
             @Override
             public void onSuccess(List<News> list) {
@@ -56,12 +55,10 @@ public class NewsPresenter {
                 NewsListAdapter adapter = new NewsListAdapter(newsView.getFragmentContext(), list);
                 newsView.getListView().setAdapter(adapter);
                 newsView.getRefreshView().finishRefreshing();
-                newsView.hideLoading();
             }
 
             @Override
             public void onError(int i, String s) {
-                newsView.hideLoading();
                 newsView.getRefreshView().finishRefreshing();
                 Toast.makeText(newsView.getFragmentContext(), "错误:" + s, Toast.LENGTH_SHORT).show();
             }
