@@ -30,6 +30,8 @@ import com.personal.coine.scorpion.jxnuhelper.bean.CampusCard;
 import com.personal.coine.scorpion.jxnuhelper.bean.MyUser;
 import com.personal.coine.scorpion.jxnuhelper.presenter.UserInfoPresenter;
 import com.personal.coine.scorpion.jxnuhelper.view.IUserInfoView;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.AboutActivity;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.FeedBackActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.MyInfoActivity;
 
 import cn.bmob.v3.BmobUser;
@@ -70,10 +72,12 @@ public class MineFragment extends Fragment implements View.OnClickListener, IUse
                 startActivity(new Intent(getContext(), MyInfoActivity.class));
                 break;
             case R.id.mine_page_row4:
+                startActivity(new Intent(getContext(),FeedBackActivity.class));
                 break;
             case R.id.mine_page_row5:
                 break;
             case R.id.mine_page_row6:
+                startActivity(new Intent(getContext(),AboutActivity.class));
                 break;
         }
     }

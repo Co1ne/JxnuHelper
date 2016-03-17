@@ -34,6 +34,9 @@
         <activity android:name=".view.activity.ExamQueryActivity" />
         <activity android:name=".view.activity.GradeQueryActivity" />
         <activity android:name=".view.activity.RestSelfLearningRoomActivity" />
+        <activity android:name=".view.activity.SchoolCalendarActivity" />
+        <activity android:name=".view.activity.FeedBackActivity" />
+        <activity android:name=".view.activity.AboutActivity" />
     </application>
 
 </manifest>

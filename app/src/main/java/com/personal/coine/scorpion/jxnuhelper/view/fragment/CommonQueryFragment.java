@@ -31,6 +31,7 @@ import com.personal.coine.scorpion.jxnuhelper.view.activity.ExamQueryActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.FeeChargeActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.GradeQueryActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.RestSelfLearningRoomActivity;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.SchoolCalendarActivity;
 
 /**
  * Description:
@@ -72,6 +73,7 @@ public class CommonQueryFragment extends Fragment {
                         startActivity(new Intent(getContext(),GradeQueryActivity.class));
                         break;
                     case 5:
+                        startActivity(new Intent(getContext(),SchoolCalendarActivity.class));
                         break;
                 }
             }
