@@ -32,6 +32,7 @@
         <activity android:name=".view.activity.CourseQueryActivity" />
         <activity android:name=".view.activity.FeeChargeActivity" />
         <activity android:name=".view.activity.ExamQueryActivity" />
+        <activity android:name=".view.activity.GradeQueryActivity" />
         <activity android:name=".view.activity.RestSelfLearningRoomActivity" />
     </application>
 
