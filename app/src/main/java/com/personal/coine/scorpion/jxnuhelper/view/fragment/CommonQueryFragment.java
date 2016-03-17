@@ -29,6 +29,7 @@ import com.personal.coine.scorpion.jxnuhelper.adapter.QueryListViewAdapter;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.CourseQueryActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.ExamQueryActivity;
 import com.personal.coine.scorpion.jxnuhelper.view.activity.FeeChargeActivity;
+import com.personal.coine.scorpion.jxnuhelper.view.activity.RestSelfLearningRoomActivity;
 
 /**
  * Description:
@@ -64,6 +65,7 @@ public class CommonQueryFragment extends Fragment {
                         startActivity(new Intent(getContext(),ExamQueryActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(getContext(),RestSelfLearningRoomActivity.class));
                         break;
                     case 4:
                         break;
